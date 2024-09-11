@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TopButtons from './components/TopButtons'
 
 import './App.css'
@@ -15,9 +15,15 @@ function App() {
   const [weather, setWeather ] = useState(null)
   
   const getWeather = async () => {
-    const data = await getFormattedWeatherData( {q: "pietermaritzburg"});
+  await getFormattedWeatherData( {q: "pietermaritzburg"}).then( data =>{
+    setWeather(data)
+  });
    console.log(data)
-  }
+  };
+
+  useEffect(() => {
+    getWeather();
+  }, [query, units]);
 
   getWeather();
 
@@ -26,10 +32,16 @@ function App() {
    <div className='mx-auto max-w-screen-lg mt-4 py-5 px-32 bg-cyan-400'>
    <TopButtons/>
    <Inputs/>
-   <TimeAndLocalion/>
+   { weather && (
+    <>
+     <TimeAndLocalion/>
    <Temp/>
    <Forecast/>
    <Forecast/>
+    </>
+   )
+   }
+  
    </div>
     </>
   )
