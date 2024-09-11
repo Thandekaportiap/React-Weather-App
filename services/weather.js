@@ -50,16 +50,27 @@ const formattedLocalTime = formatToLocalTime(dt, timezone)
 };
 
 const formatForecastWeather = (secs, offset, data) => {
+    console.log(secs)
  //hourly
  const hourly = data
  .filter((f) => f.dt > secs)
- .slice(0, 5)
  .map((f) => ({
-    temp:f.main.temp,
+    temp: f.main.temp,
     title: formatToLocalTime(f.dt, offset, "hh:mm a"),
     icon: iconUrlFromCode(f.weather[0].icon),
     data: f.dt_txt,
- }))   
+ }))
+ .slice(0, 5);
+ 
+ //daily 
+ const daily = data.filter((f) => f.dt_txt.slice(-8) === "00:00:00").map(f => ({
+    temp: f.main.temp,
+    title: formatToLocalTime(f.dt, offset, "ccc"),
+    icon: iconUrlFromCode(f.weather[0].icon),
+    data: f.dt_txt,
+ }))
+
+ return{ hourly, daily }
 }
 
 const getFormattedWeatherData = async (searchParams) => {
@@ -75,7 +86,7 @@ const getFormattedWeatherData = async (searchParams) => {
     }).then((d) => formatForecastWeather(dt, timezone, d.list))
 
 
-    return { ...formattedCurrentWeather };
+    return { ...formattedCurrentWeather, ...formattedForecastWeather };
 }
 
 export default getFormattedWeatherData;

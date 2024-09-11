@@ -9,10 +9,14 @@ import Forecast from './components/Forecast'
 import getFormattedWeatherData from '../services/weather'
 
 function App() {
+
+  const [query, setQuery] = useState({q: 'london'});
+  const [units, setUnits] = useState('metric')
+  const [weather, setWeather ] = useState(null)
   
   const getWeather = async () => {
-    const data = await getFormattedWeatherData( {q: 'berlin'})
-    console.log(data);
+    const data = await getFormattedWeatherData( {q: "pietermaritzburg"});
+   console.log(data)
   }
 
   getWeather();
