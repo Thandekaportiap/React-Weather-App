@@ -18,7 +18,7 @@ function App() {
   await getFormattedWeatherData( { ...query, units }).then( (data) =>{
     setWeather(data);
   });
-   console.log(data);
+  //  console.log(data);
   };
 
   useEffect(() => {

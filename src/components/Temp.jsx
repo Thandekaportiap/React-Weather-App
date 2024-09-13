@@ -21,13 +21,13 @@ const Temp = ({ weather: {
             id:1,
             Icon: FaThermometerEmpty,
             title : "Real Feel",
-            value: `${feels_like.tofixes()}°`,
+            value: `${feels_like.toFixed()}°`,
         },
         {
             id:2,
             Icon: BiSolidDropletHalf,
             title : "Humidity",
-            value: `${humidity.tofixes()}°`,
+            value: `${humidity.toFixed()}°`,
         },
         {
             id:3,
@@ -54,13 +54,13 @@ const Temp = ({ weather: {
             id:3,
             Icon: MdKeyboardArrowUp,
             title : "High",
-            value: `${temp_max.tofixes()}°`,
+            value: `${temp_max.toFixed()}°`,
         },
         {
             id:4,
             Icon: MdKeyboardArrowDown,
             title : "Low",
-            value: `${temp_min.tofixes()}°`,
+            value: `${temp_min.toFixed()}°`,
         },
     ]
 
