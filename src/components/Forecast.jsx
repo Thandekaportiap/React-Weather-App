@@ -22,6 +22,7 @@ const Forecast = ({title, data}) => {
           </div>
         ))}
       </div>
+      
     </div>
   )
 }

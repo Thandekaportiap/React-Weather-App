@@ -66,7 +66,7 @@ const Temp = ({ weather: {
 
   return (
    <>
-<div className="flex justify-center items-center py-6 text-xl text-pink-800">
+<div className="flex justify-center items-center py-6 text-xl text-gray-950">
 <p>{details}</p>
 </div>
 <div className="flex flex-row items-center justify-between py-3">

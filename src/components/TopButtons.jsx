@@ -12,15 +12,15 @@ let cities = [
     },
     {
         id:3,
-        name:"Tokyo"
+        name:"Johannesburg"
     },
     {
         id:4,
-        name:"New York"
+        name:"Cape Town"
     },
     {
         id:5,
-        name:"Toronto"
+        name:"Durban"
     },
 
 ]
