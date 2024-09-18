@@ -26,7 +26,7 @@ const handleLocationClick = () => {
         value={city}
         onChange={(e) => setCity(e.currentTarget.value)}
         type="text" placeholder="search by city..." 
-        className="text-xl font-light p-2 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase"/>
+        className="text-xl text-black font-light p-2 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase"/>
       <BiSearch 
       size={30} 
       className="cursor-pointer transition ease-out hover:scale-125"
