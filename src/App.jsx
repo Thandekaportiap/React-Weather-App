@@ -8,6 +8,10 @@ import Temp from './components/Temp'
 import Forecast from './components/Forecast'
 import getFormattedWeatherData from '../services/weather'
 
+const coldBackground = require('./assets/cold.jpg');   
+const warmBackground = require('./assets/sun2.jpeg');   
+const defaultBackground = require('./assets/default.avif');   
+
 function App() {
 
   const [query, setQuery] = useState({q: 'pietermaritzburg'});
@@ -22,19 +26,28 @@ function App() {
   };
 
   useEffect(() => {
+    getWeather()
   }, [query, units]);
 
- const formatBackground = () => {
-  if (!weather) return "from-cyan-600 to-blue-700";
+
+const getBackgroundImage = () => {
+  if (!weather) return defaultBackground; 
+
   const threshold = units === "metric" ? 20 : 60;
-  if (weather.temp <= threshold) return "from-cyan-400 to-blue-700";
-  return "from-yellow-600 to-orange-700"
- };
+  if (weather.temp <= threshold) return coldBackground; 
+  return warmBackground; 
+};
 
   return (
     <>
-   <div className={`mx-auto max-w-screen-lg mt-4 py-5 px-32 bg-gradient-to-r text-white from-cyan-600 to-blue-700
-    shadow-xl shadow-gray-500 ${formatBackground()}`}>
+   <div 
+      style={{ 
+        backgroundImage: `url(${getBackgroundImage()})`, 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center'
+      }} 
+      className="mx-auto max-w-screen-lg mt-4 py-5 px-32 text-white shadow-xl shadow-gray-500"
+    >
    <TopButtons setQuery={setQuery} />
    <Inputs setQuery={setQuery} setUnits={setUnits}  />
    { weather && (
