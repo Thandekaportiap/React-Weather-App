@@ -7,6 +7,7 @@ const getWeatherData = (infoType, searchParams) => {
     const url = new URL(BASE_URL + infoType)
     url.search = new URLSearchParams({...searchParams, appid: API_KEY});
 
+    console.log(url)
     return fetch(url)
     .then((res) => res.json());
 };
@@ -48,13 +49,44 @@ const formattedLocalTime = formatToLocalTime(dt, timezone)
  };
 };
 
+const formatForecastWeather = (secs, offset, data) => {
+    console.log(secs)
+ //hourly
+ const hourly = data
+ .filter((f) => f.dt > secs)
+ .map((f) => ({
+    temp: f.main.temp,
+    title: formatToLocalTime(f.dt, offset, "hh:mm a"),
+    icon: iconUrlFromCode(f.weather[0].icon),
+    data: f.dt_txt,
+ }))
+ .slice(0, 5);
+ 
+ //daily 
+ const daily = data.filter((f) => f.dt_txt.slice(-8) === "00:00:00").map(f => ({
+    temp: f.main.temp,
+    title: formatToLocalTime(f.dt, offset, "ccc"),
+    icon: iconUrlFromCode(f.weather[0].icon),
+    data: f.dt_txt,
+ }))
+
+ return{ hourly, daily }
+}
+
 const getFormattedWeatherData = async (searchParams) => {
     const formattedCurrentWeather = await getWeatherData('weather', searchParams)
     .then(formateCurrent)
 
-    const {dt, lat, lon, timezone} = formattedCurrentWeather
+    const {dt, lat, lon, timezone} = formattedCurrentWeather;
 
-    return { ...formattedCurrentWeather };
+    const formattedForecastWeather = await getWeatherData("forecast", {
+        lat, 
+        lon,
+        units: searchParams.units,
+    }).then((d) => formatForecastWeather(dt, timezone, d.list))
+
+
+    return { ...formattedCurrentWeather, ...formattedForecastWeather };
 }
 
 export default getFormattedWeatherData;

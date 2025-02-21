@@ -1,6 +1,6 @@
 
 
-const TopButtons = () => {
+const TopButtons = ({setQuery}) => {
 let cities = [
     {
         id:1,
@@ -12,15 +12,15 @@ let cities = [
     },
     {
         id:3,
-        name:"Tokyo"
+        name:"Johannesburg"
     },
     {
         id:4,
-        name:"New York"
+        name:"Cape Town"
     },
     {
         id:5,
-        name:"Toronto"
+        name:"Durban"
     },
 
 ]
@@ -30,7 +30,8 @@ let cities = [
     <div className='flex items-center justify-around my-6'>
      {cities.map((city) => (
          <button key={city.id} className="text-lg font-medium hover:bg-gray-700/20 px-3 py-2
-         rounded-md transition ease-in">
+         rounded-md transition ease-in"
+         onClick={() => setQuery({q: city.name })}>
            {city.name}</button>
      ))}
     
